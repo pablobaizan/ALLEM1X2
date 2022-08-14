@@ -5,25 +5,27 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Semaphore;
 
 public class Calc extends Thread {
 	
 	private Config config;
-	private HashSet<Combinacion> solution;
-	private HashMap<String, double[]> mem;
+	private Solution solution;
+	private ConcurrentHashMap<String, double[]> mem;
 	private Pool pool;
 	private Semaphore busy;
+	private Counter busies;
 	
 	public Calc(Config config) {
 		this.config = config;
 		this.busy = new Semaphore(1);
-		this.solution = new HashSet<Combinacion>();
+		this.solution = new Solution();
 		this.pool = new Pool(this, this.config);
-		this.mem = new HashMap<String, double[]>();
+		this.mem = new ConcurrentHashMap<String, double[]>();
+		this.busies = new Counter();
 	}
 
 	public void run() {
@@ -128,7 +130,7 @@ public class Calc extends Thread {
 		try {
 			CombinacionComparator cc = new CombinacionComparator(this.config.getSortOption());
 			List<Combinacion> listaOrdenada = new ArrayList<Combinacion>();
-			listaOrdenada.addAll(this.solution);
+			listaOrdenada.addAll(this.solution.getSet());
 			listaOrdenada.sort(cc);
 			BufferedWriter bw = new BufferedWriter(new FileWriter(this.config.getFileOut()));
 			int top = this.config.getTop();
@@ -178,7 +180,7 @@ public class Calc extends Thread {
 		}
 	}
 
-	public HashMap<String, double[]> getMem() {
+	public ConcurrentHashMap<String, double[]> getMem() {
 		return mem;
 	}
 
@@ -187,11 +189,23 @@ public class Calc extends Thread {
 	}
 
 	public HashSet<Combinacion> getSolution() {
-		return solution;
+		return solution.getSet();
 	}
 
 	public Pool getPool() {
 		return pool;
+	}
+	
+	public void increaseBusies() {
+		this.busies.increaseBusies();
+	}
+	
+	public void decreaseBusies() {
+		this.busies.decreaseBusies();
+	}
+
+	public int getBusies() {
+		return busies.getBusies();
 	}
 	
 }

@@ -36,9 +36,9 @@ public class Launcher {
 		
 		calc.run();
 		
-		
-		while(calc.getPool().size() < this.config.getHilos()) {
+		while(calc.getPool().size() < this.config.getHilos() && calc.getBusies() != 0) {
 		}
+		System.out.println("Ordenando columnas y preparando salida. Dependiendo del tamaño de la madre, ésto puede llevar unos instantes...");
 		calc.print();
 		System.out.println("Proceso finalizado.");
 	}

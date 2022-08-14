@@ -30,4 +30,4 @@ Para la ejecución de este .jar es necesario tener instalado el JRE de Java en u
 
 En el .zip se adjunta un .bat para Windows, que lanzará el proceso en consola. Este .bat debe editarse con cualquier editor de texto y adaptarlo a las opciones requeridas y con las rutas de archivo personales, ya que tan sólo es un modelo que debe reescribirse, tratándose de una ayuda y ejemplo de órden de consola para ejecutar el .jar.
 
-Hago notar que en el programa hay un bug que no he conseguido corregir aún en esta versión. El bug consiste en que en el proceso de cálculo, el programa se queda colgado, no grabando el archivo de salida correspondiente. La consola, si el proceso termina correctamente, debe cerrarse si se lanza desde el .bat, y marcar en todo caso "Proceso finalizado" al final de la salida por consola.
+La consola, si el proceso termina correctamente, debe cerrarse si se lanza desde el .bat, y marcar en todo caso "Proceso finalizado" al final de la salida por consola.

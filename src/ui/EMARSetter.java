@@ -4,7 +4,7 @@ import principal.Launcher;
 
 public class EMARSetter extends AbstractSetter {
 
-	private double emar;
+	private float emar;
 	
 	public EMARSetter(Launcher launcher, String optionName) {
 		super(launcher, optionName);
@@ -17,9 +17,9 @@ public class EMARSetter extends AbstractSetter {
 
 	@Override
 	public void load(String newParam) {
-		double emar = 1.0;
+		float emar = 1.0f;
 		try {
-			emar = Double.parseDouble(newParam);
+			emar = Float.parseFloat(newParam);
 			if(emar >= 0.0) {
 				this.emar = emar;
 			}

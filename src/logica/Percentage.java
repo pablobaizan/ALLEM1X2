@@ -5,7 +5,7 @@ import java.io.FileReader;
 
 public class Percentage {
 
-	private double[][] data;
+	private float[][] data;
 	private String fileName;
 	
 	public Percentage(String fileName) {
@@ -15,7 +15,7 @@ public class Percentage {
 	}
 	
 	public void load(String fileName) {
-		double[][] porcs = new double[14][3];
+		float[][] porcs = new float[14][3];
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(fileName));
@@ -23,9 +23,9 @@ public class Percentage {
 			while(br.ready()) {
 				String line = br.readLine();
 				String[] data = line.split("\t");
-				porcs[cont][0] = Double.parseDouble(data[1].replace(',', '.')) / 100.0;
-				porcs[cont][1] = Double.parseDouble(data[0].replace(',', '.')) / 100.0;
-				porcs[cont][2] = Double.parseDouble(data[2].replace(',', '.')) / 100.0;
+				porcs[cont][0] = Float.parseFloat(data[1].replace(',', '.')) / 100.0f;
+				porcs[cont][1] = Float.parseFloat(data[0].replace(',', '.')) / 100.0f;
+				porcs[cont][2] = Float.parseFloat(data[2].replace(',', '.')) / 100.0f;
 				cont++;
 			}
 			br.close();
@@ -37,24 +37,24 @@ public class Percentage {
 	
 	public boolean check() {
 		if(this.data.length != 14)
-			throw new RuntimeException("Porcentajes con número incorrecto de partidos.");
+			throw new RuntimeException("Porcentajes con nÃºmero incorrecto de partidos.");
 		for(int i = 0; i < 14; i++) {
 			if(this.data[i].length != 3)
 				throw new RuntimeException("Error en el fichero de porcentajes.");
-			double toCheck = 0;
+			float toCheck = 0;
 			for(int j = 0; j < 3; j++) {
 				toCheck += this.data[i][j];
 			}
 			if(Math.abs(1.0 - toCheck) > 0.01) {
 				throw new RuntimeException("Los datos de los porcentajes no se han podido"
 						+ " cargar correctamente debido a un desequilibrio"
-						+ " en la asignación de porcentajes del fichero origen.");
+						+ " en la asignaciÃ³n de porcentajes del fichero origen.");
 			}
 		}
 		return true;
 	}
 
-	public double[][] getData() {
+	public float[][] getData() {
 		return data;
 	}
 

@@ -19,7 +19,10 @@ public class SortSetter extends AbstractSetter {
 				|| this.option.equals("EM11")
 				|| this.option.equals("EM12")
 				|| this.option.equals("EM13")
-				|| this.option.equals("EM14")) {
+				|| this.option.equals("EM14")
+				|| this.option.equals("mad")
+				|| this.option.equals("kelly")
+				|| this.option.equals("tvm")) {
 			this.launcher.setSortOption(this.option);
 		}
 		else this.paramFail(this.option);

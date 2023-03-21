@@ -15,8 +15,8 @@ public abstract class AbstractSetter implements ISetter {
 	public abstract void load(String newParam);
 	
 	protected void paramFail(String param) {
-		throw new RuntimeException("Ha habido un error de introducciÛn del par·metro "
-				+ param + " de la opciÛn " + this.optionName);
+		throw new RuntimeException("Ha habido un error de introducci√≥n del par√°metro "
+				+ param + " de la opci√≥n " + this.optionName);
 	}
 	
 

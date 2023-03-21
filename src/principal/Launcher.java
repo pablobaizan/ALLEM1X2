@@ -23,8 +23,8 @@ public class Launcher {
 	public void launch() throws Exception {
 		System.out.println();
 		System.out.println();
-		System.out.println("Programa realizado por Pablo Baiz·n Fern·ndez");
-		System.out.println("Gestor de la peÒa quinielista Los Habaneros");
+		System.out.println("Programa realizado por Pablo Baiz√°n Fern√°ndez");
+		System.out.println("Gestor de la pe√±a quinielista Los Habaneros");
 		System.out.println("Twitter: @loshabaneros1x2");
 		System.out.println("Email: loshabaneros1x2@gmail.com");
 		System.out.println();
@@ -38,7 +38,7 @@ public class Launcher {
 		
 		while(calc.getPool().size() < this.config.getHilos() && calc.getBusies() != 0) {
 		}
-		System.out.println("Ordenando columnas y preparando salida. Dependiendo del tamaÒo de la madre, Èsto puede llevar unos instantes...");
+		System.out.println("Ordenando columnas y preparando salida. Dependiendo del tama√±o de la madre, √©sto puede llevar unos instantes...");
 		calc.print();
 		System.out.println("Proceso finalizado.");
 	}
@@ -67,11 +67,11 @@ public class Launcher {
 				this.actual = null;
 			}
 			else {
-				throw new RuntimeException("Entrada de argumentos no v·lida.");
+				throw new RuntimeException("Entrada de argumentos no vÔøΩlida.");
 			}
 		}
 		if(!unchecked && obligatorios.size() != 0) {
-			throw new RuntimeException("No se han introducido todos los par·metros obligatorios."
+			throw new RuntimeException("No se han introducido todos los parÔøΩmetros obligatorios."
 					+ " Falta(n) " + obligatorios.size());
 		}
 	}
@@ -112,15 +112,15 @@ public class Launcher {
 		this.config.setHilos(hilos);
 	}
 	
-	public void setEMT(double emt) {
+	public void setEMT(float emt) {
 		this.config.setEMT(emt);
 	}
 	
-	public void setEMAR(double emar) {
+	public void setEMAR(float emar) {
 		this.config.setEMAR(emar);
 	}
 	
-	public void setEMS(double[] ems) {
+	public void setEMS(float[] ems) {
 		this.config.setEMS(ems);
 	}
 	
@@ -132,7 +132,7 @@ public class Launcher {
 		this.config.setDistancia(distancia);
 	}
 	
-	public void setReparto(double[] reparto) {
+	public void setReparto(float[] reparto) {
 		this.config.setReparto(reparto);
 	}
 

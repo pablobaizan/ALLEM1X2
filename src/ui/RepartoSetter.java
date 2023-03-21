@@ -4,7 +4,7 @@ import principal.Launcher;
 
 public class RepartoSetter extends AbstractSetter {
 
-	private double[] reparto;
+	private float[] reparto;
 	
 	public RepartoSetter(Launcher launcher, String optionName) {
 		super(launcher, optionName);
@@ -19,10 +19,10 @@ public class RepartoSetter extends AbstractSetter {
 	public void load(String newParam) {
 		String[] vals = newParam.split("/");
 		if(vals.length != 5) this.paramFail(newParam);
-		this.reparto = new double[5];
+		this.reparto = new float[5];
 		for(int i = 0; i < vals.length; i++) {
 			try {
-				double t = Double.parseDouble(vals[i]);
+				float t = Float.parseFloat(vals[i]);
 				if(t < 0.0) this.paramFail(newParam);
 				this.reparto[i] = t;
 			}

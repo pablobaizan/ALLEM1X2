@@ -11,10 +11,10 @@ public class Config {
 	private String sortOption;
 	private int apuestasLAE;
 	private int hilos;
-	private double emt;
-	private double emar;
-	private double[] ems;
-	private double[] reparto;
+	private float emt;
+	private float emar;
+	private float[] ems;
+	private float[] reparto;
 	private int top;
 	private int distancia;
 
@@ -106,35 +106,35 @@ public class Config {
 		this.distancia = distancia;
 	}
 	
-	public void setEMT(double emt) {
+	public void setEMT(float emt) {
 		this.emt = emt;
 	}
 	
-	public double getEMT() {
+	public float getEMT() {
 		return this.emt;
 	}
 	
-	public void setEMAR(double emar) {
+	public void setEMAR(float emar) {
 		this.emar = emar;
 	}
 	
-	public double getEMAR() {
+	public float getEMAR() {
 		return this.emar;
 	}
 	
-	public void setEMS(double[] ems) {
+	public void setEMS(float[] ems) {
 		this.ems = ems;
 	}
 	
-	public double[] getEMS() {
+	public float[] getEMS() {
 		return this.ems;
 	}
 
-	public double[] getReparto() {
+	public float[] getReparto() {
 		return reparto;
 	}
 
-	public void setReparto(double[] reparto) {
+	public void setReparto(float[] reparto) {
 		this.reparto = reparto;
 	}
 

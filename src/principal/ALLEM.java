@@ -3,6 +3,7 @@ package principal;
 public class ALLEM {
 
 	public static void main(String[] args) throws Exception {
+		long t0 = System.currentTimeMillis();
 		Launcher launcher = new Launcher();
 		String[] defaults = new String[] {
 				"-rep", "0.09/0.075/0.075/0.075/0.16"
@@ -24,6 +25,8 @@ public class ALLEM {
 		launcher.setSetters(defaults, true);
 		launcher.setSetters(args, false);
 		launcher.launch();
+		long t1 = System.currentTimeMillis();
+		System.out.println((t1 - t0) / 1000.0);
 	}
 
 }

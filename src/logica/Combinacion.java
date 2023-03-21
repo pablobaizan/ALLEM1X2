@@ -2,26 +2,30 @@ package logica;
 
 public class Combinacion {
 	
-	private int[] combinacion;
+	private byte[] combinacion;
 	private String name;
 	private int hashCode;
-	private double[] ems;
-	private double p14;
+	private float[] probs;
+	private float[] ems;
+	private float p14;
 	private Config config;
+	private float mad;
+	private float kelly;
+	private float tvm;
 	
-	public Combinacion(int[] combinacion, Config config) {
+	public Combinacion(byte[] combinacion, Config config) {
 		this.combinacion = combinacion;
-		this.hashCode = 0;
+		this.hashCode = -1;
 		this.config = config;
-		this.p14 = 0.0;
+		this.p14 = 0.0f;
 	}
 	
 	public Combinacion(String combinacion, Config config) {
 		this.name = combinacion;
-		this.hashCode = 0;
+		this.hashCode = -1;
 		this.config = config;
-		this.p14 = 0.0;
-		int[] comb = new int[14];
+		this.p14 = 0.0f;
+		byte[] comb = new byte[14];
 		int cont = 0;
 		for(Character ch : combinacion.toCharArray()) {
 			if(ch.equals('X')) comb[cont] = 0;
@@ -44,38 +48,29 @@ public class Combinacion {
 		return combinacion.length;
 	}
 
-	public double probabilidad14() {
+	public float probabilidad14() {
 		if(this.p14 != 0.0) return this.p14;
-		double acum = 1.0;
-		for(int i = 0; i < combinacion.length; i++) {
-			acum *= this.config.getReales().getData()[i][combinacion[i]];
-		}
-		this.p14 = acum;
-		return acum;
+		this.p14 = CombinacionTool.getProbabilidad14(this.combinacion, this.config);
+		return this.p14;
 	}
 	
 	public int get(int i) {
 		return combinacion[i];
 	}
 	
-	public void set(int i, int signo) {
+	public void set(byte i, byte signo) {
 		combinacion[i] = signo;
 	}
 
-	public int[] getCombinacion() {
+	public byte[] getCombinacion() {
 		return combinacion;
 	}
 	
 	@Override
 	public String toString() {
 		if(this.name != null) return name;
-		String retorno = "";
-		for(int i : combinacion) {
-			if(i == 0) retorno += "X";
-			else retorno += i;
-		}
-		this.name = retorno;
-		return retorno;
+		this.name = CombinacionTool.getName(this.combinacion);
+		return this.name;
 	}
 
 	@Override
@@ -89,83 +84,51 @@ public class Combinacion {
 	
 	@Override
 	public int hashCode() {
-		if(hashCode != 0) return this.hashCode;
-		int code = 0;
-		for(int i = 0; i < combinacion.length; i++) {
-			code += combinacion[i] * Math.pow(3, i);
-		}
-		this.hashCode = code;
-		return code;
+		if(hashCode != -1) return this.hashCode;
+		this.hashCode = CombinacionTool.getHashCode(this.combinacion);
+		return this.hashCode;
 	}
 	
-	public double[] getProbabilidades() {
-		double[][] p = this.config.getApostados().getData();
-	    double[] probs = new double[5];
-	    int[] signos = this.getCombinacion();
-	    double p14 = 1.0;
-	    for(int a = 0; a < 14; a++) {
-	    	p14 *= p[a][signos[a]];
-	    	double p13 = 1.0;
-	    	for(int i = 0; i < 14; i++) {
-	    		if(i != a) {
-	    			p13 *= p[i][signos[i]];
-	    		} 
-	    		else {
-	    			p13 *= (1.0 - p[i][signos[i]]);
-	    		}
-	    	}
-	    	probs[3] += p13;
-	    	for(int b = a + 1; b < 14; b++) {
-	    		double p12 = 1.0;
-	    		for(int i = 0; i < 14; i++) {
-	    			if(i != a && i != b) {
-	    				p12 *= p[i][signos[i]];
-	    			}
-	    			else {
-	    				p12 *= (1.0 - p[i][signos[i]]);
-	    			}
-	    		}
-	    		probs[2] += p12;
-	    		for(int c = b + 1; c < 14; c++) {
-	    			double p11 = 1.0;
-	    			for(int i = 0; i < 14; i++) {
-	    				if(i != a && i != b && i != c) {
-	    					p11 *= p[i][signos[i]];
-	    				}
-	    				else {
-	    					p11 *= (1.0 - p[i][signos[i]]);
-	    				}
-	    			}
-	    			probs[1] += p11;
-	    			for(int d = c + 1; d < 14; d++) {
-	    				double p10 = 1.0;
-	    				for(int i = 0; i < 14; i++) {
-	    					if(i != a && i != b && i != c && i != d) {
-	    						p10 *= p[i][signos[i]];
-	    					}
-	    					else {
-	    						p10 *= (1.0 - p[i][signos[i]]);
-	    					}
-	    				}
-	    				probs[0] += p10;
-	    			}
-	    		}
-	    	}
-	    }
-	    probs[4] += p14;
-	    return probs;
+	public float[] getProbabilidades() {
+		if(this.probs != null) return probs;
+		this.probs = CombinacionTool.getProbabilidades(this.combinacion, this.config);
+		return this.probs;
 	}
 
-	public double[] getEms() {
+	public float[] getEms() {
 		return ems;
 	}
 
-	public void setEms(double[] ems) {
+	public void setEms(float[] ems) {
 		this.ems = ems;
 	}
 
-	public void setP14(double p14) {
+	public void setP14(float p14) {
 		this.p14 = p14;
+	}
+
+	public float getMad() {
+		return mad;
+	}
+
+	public void setMad(float eProb) {
+		this.mad = eProb;
+	}
+
+	public float getKelly() {
+		return kelly;
+	}
+
+	public void setKelly(float kelly) {
+		this.kelly = kelly;
+	}
+
+	public float getTvm() {
+		return tvm;
+	}
+
+	public void setTvm(float tvm) {
+		this.tvm = tvm;
 	}
 
 }
